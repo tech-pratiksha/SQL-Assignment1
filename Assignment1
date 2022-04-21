@@ -1,0 +1,80 @@
+/*  
+
+1.Desgin the above database with following table by applying Primary key and Foreign key
+2.Insert Records in all tables 
+3.In Customer table FirstName Attribute should not accept null value
+4.In Order table OrderDate should not accept null value
+5.Display all customer details
+6.write a query to display Country whose name starts with A or I
+7 .write a query to display whose name of customer whose third character is i */
+
+
+
+
+USE [sql_assignment]
+CREATE TABLE customer (
+	id BIGINT PRIMARY KEY,
+	FirstName VARCHAR(40) NOT NULL,
+	LastNAME VARCHAR(40) NOT NULL,
+	City VARCHAR(40),
+	Country VARCHAR(40),
+	Phone VARCHAR(20)
+);
+
+CREATE TABLE "Order" (
+id BIGINT PRIMARY KEY,
+OrderDate DATETIME,
+OrderNumber VARCHAR(10),
+Customerid BIGINT FOREIGN KEY (Customerid) REFERENCES customer(id),
+TotalAmount decimal(12,2)
+);
+
+CREATE TABLE "OrderItem" (
+id BIGINT PRIMARY KEY,
+Orderid BIGINT FOREIGN KEY (Orderid) REFERENCES "Order"(id),
+Productid BIGINT FOREIGN KEY (Productid) REFERENCES OrderItem(id),
+UnitPrice decimal(12,2),
+Quantity int
+);
+
+CREATE TABLE "Product" (
+id BIGINT PRIMARY KEY,
+ProductName VARCHAR(50),
+UnitPrice decimal(12,2),
+Package VARCHAR(30),
+IsDiscontinued BIT
+);
+
+INSERT INTO customer
+([id],[FirstName],[LastName],[City],[Country],[Phone])
+VALUES 
+( 1, 'Pratiksha', 'Prema', 'Pune', 'India', 'pratiksha@gmail.com'),
+( 2, 'Satya', 'Rathod', 'Nanded', 'India', 'satya@gmail.com')
+
+INSERT INTO Product([id], [ProductName], [UnitPrice],[Package],[IsDiscontinued])
+VALUES
+( 1, 'Flute', '5000.90', '120000', '1'),
+( 2, 'Guitar', '32000.00', '2121212', '0')
+
+INSERT INTO "Order" ([id], [OrderDate], [OrderNumber], [customerid], [TotalAmount])
+VALUES 
+( 1, '1/2/2022', 'Flute', '1', '4000'),
+( 2, '1/3/2022', 'guitar', '2', '9000')
+
+
+INSERT INTO OrderItem ([id], [Orderid], [Productid], [UnitPrice], [Quantity])
+VALUES 
+( 1, '1', '1', '4500.50', '2'),
+( 2, '2', '2', '9000.00', '3')
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT * FROM Customer
+WHERE Country='Germany'
+AND City='Berlin';
+
+Create table employees
+SELECT *
+FROM employees
+WHERE emp_name LIKE '%S'
+  
